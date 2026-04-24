@@ -126,11 +126,7 @@ else if (choice === 'progress') {
   document.getElementById("contentTitle").innerText = "My Progress";
   document.getElementById("contentText").innerText = "Animals discovered: 0 / 3\nBadges earned: none yet";
 }
-
-function goBack() {
-  document.getElementById("menuScreen").style.display = "block";
-  document.getElementById("contentScreen").style.display = "none";
-}
+    
 function checkAnswer(selected, correct) {
   if (selected === correct) {
     document.getElementById("contentText").innerHTML = "Correct! 🎉";
@@ -138,7 +134,12 @@ function checkAnswer(selected, correct) {
   else {
     document.getElementById("contentText").innerHTML = "Wrong 😅 Try again!";
   }
-}  
+} 
+function goBack() {
+  document.getElementById("menuScreen").style.display = "block";
+  document.getElementById("contentScreen").style.display = "none";
+}
+ 
   }
   </script>
 </body>

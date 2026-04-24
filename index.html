@@ -1,10 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Zoo Memory Explorer</title>
+  <title>Zoo Explorer</title>
 </head>
+
 <body>
-  <h1>Zoo Memory Explorer 🐾</h1>
-  <p>This is my first website!</p>
+  <h1>Zoo Explorer</h1>
+
+  <h2>Lion</h2>
+
+  <p>Choose what you want to learn:</p>
+
+<style>
+  .menu-box {
+    background-color: #2f6f4e;
+    color: white;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+</style>
+
+<h1>Zoo Explorer 🐾</h1>
+<h2>Lion</h2>
+
+<p>What would you like to learn today?</p>
+
+<div class="menu-box" onclick="showMenu('feeding')">
+  Next Feeding Time
+</div>
+
+<div class="menu-box" onclick="showMenu('info')">
+  Animal Information
+</div>
+
+<div class="menu-box" onclick="showMenu('videos')">
+  Watch Videos
+</div>
+
+<div class="menu-box" onclick="showMenu('photo')">
+  Take a Photo Memory
+</div>
+
+<p id="menuResult">Choose an option above.</p>
+
+  <h3> Your selection:</h3>
+  <p id= "menuResult">Choose an option above.</p>
+
+  <script>
+    function showMenu(choice){
+      if (choice == 'feeding'){
+        document.getElementById('menuResult').innerText = 'Next feeding time: 2:30 PM';
+      }
+      else if( choice == 'info'){
+        document.getElementById('menuResult').innerText = 'Lions razor like tongues';
+      }
+      else if(choice == 'videos'){
+        document.getElementById('menuResult').innerText = 'The video link :D';
+      }
+      else if(choice == 'photos'){
+        document.getElementById('menuResult').innerText = 'Photo memory feature will open here.';
+      }   
+    }
+  </script>
 </body>
 </html>

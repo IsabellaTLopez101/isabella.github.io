@@ -88,45 +88,66 @@
   <button onclick="goBack()">Back</button>
 
 </div>
-  <script>
-  function showMenu(choice) {
+ <script>
+const questions = [
+  {
+    question: "What do meerkats eat?",
+    options: ["Plants", "Insects", "Fish"],
+    correct: 1
+  },
+  {
+    question: "What do meerkats do to protect their group?",
+    options: ["Stand guard", "Hide underwater", "Build nests in trees"],
+    correct: 0
+  },
+  {
+    question: "Where do meerkats usually live?",
+    options: ["Deserts and grasslands", "The ocean", "Snowy mountains"],
+    correct: 0
+  }
+];
+
+function showMenu(choice) {
   document.getElementById("menuScreen").style.display = "none";
   document.getElementById("contentScreen").style.display = "block";
 
- if (choice === 'discover') {
-  window.location.href = "https://lazoo.org/explore-your-zoo/our-animals/mammals/meerkat/";
+  if (choice === 'discover') {
+    window.location.href = "https://lazoo.org/explore-your-zoo/our-animals/mammals/meerkat/";
+  }
+
+  else if (choice === 'quiz') {
+    document.getElementById("contentTitle").innerText = "Quick Quiz";
+
+    let randomIndex = Math.floor(Math.random() * questions.length);
+    let q = questions[randomIndex];
+
+    document.getElementById("contentText").innerHTML = `
+      <p>${q.question}</p>
+
+      <button onclick="checkAnswer(0, ${q.correct})">${q.options[0]}</button><br><br>
+      <button onclick="checkAnswer(1, ${q.correct})">${q.options[1]}</button><br><br>
+      <button onclick="checkAnswer(2, ${q.correct})">${q.options[2]}</button>
+    `;
+  }
+
+  else if (choice === 'videos') {
+    document.getElementById("contentTitle").innerText = "Watch Videos";
+    document.getElementById("contentText").innerHTML =
+      '<a href="https://lazoo.org/" target="_blank">Visit the LA Zoo animal page</a>';
+  }
+
+  else if (choice === 'photo') {
+    document.getElementById("contentTitle").innerText = "Photo Memory";
+    document.getElementById("contentText").innerText = "Photo memory feature coming soon!";
+  }
+
+  else if (choice === 'progress') {
+    document.getElementById("contentTitle").innerText = "My Progress";
+    document.getElementById("contentText").innerText =
+      "Animals discovered: 0 / 3\nBadges earned: none yet";
+  }
 }
 
-else if (choice === 'quiz') {
-  document.getElementById("contentTitle").innerText = "Quick Quiz";
-
-  let randomIndex = Math.floor(Math.random() * questions.length);
-  let q = questions[randomIndex];
-
-  document.getElementById("contentText").innerHTML = `
-    <p>${q.question}</p>
-
-    <button onclick="checkAnswer(0, ${q.correct})">${q.options[0]}</button><br><br>
-    <button onclick="checkAnswer(1, ${q.correct})">${q.options[1]}</button><br><br>
-    <button onclick="checkAnswer(2, ${q.correct})">${q.options[2]}</button>
-  `;
-}
-else if (choice === 'videos') {
-  document.getElementById("contentTitle").innerText = "Watch Videos";
-  document.getElementById("contentText").innerHTML =
-    '<a href="https://lazoo.org/" target="_blank">Visit the LA Zoo animal page</a>';
-}
-
-else if (choice === 'photo') {
-  document.getElementById("contentTitle").innerText = "Photo Memory";
-  document.getElementById("contentText").innerText = "Photo memory feature coming soon!";
-}
-
-else if (choice === 'progress') {
-  document.getElementById("contentTitle").innerText = "My Progress";
-  document.getElementById("contentText").innerText = "Animals discovered: 0 / 3\nBadges earned: none yet";
-}
-    
 function checkAnswer(selected, correct) {
   if (selected === correct) {
     document.getElementById("contentText").innerHTML = "Correct! 🎉";
@@ -134,13 +155,12 @@ function checkAnswer(selected, correct) {
   else {
     document.getElementById("contentText").innerHTML = "Wrong 😅 Try again!";
   }
-} 
+}
+
 function goBack() {
   document.getElementById("menuScreen").style.display = "block";
   document.getElementById("contentScreen").style.display = "none";
 }
- 
-  }
-  </script>
+</script>
 </body>
 </html>

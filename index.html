@@ -99,9 +99,18 @@
 
 else if (choice === 'quiz') {
   document.getElementById("contentTitle").innerText = "Quick Quiz";
-  document.getElementById("contentText").innerText = "Quiz feature coming next!";
-}
 
+  let randomIndex = Math.floor(Math.random() * questions.length);
+  let q = questions[randomIndex];
+
+  document.getElementById("contentText").innerHTML = `
+    <p>${q.question}</p>
+
+    <button onclick="checkAnswer(0, ${q.correct})">${q.options[0]}</button><br><br>
+    <button onclick="checkAnswer(1, ${q.correct})">${q.options[1]}</button><br><br>
+    <button onclick="checkAnswer(2, ${q.correct})">${q.options[2]}</button>
+  `;
+}
 else if (choice === 'videos') {
   document.getElementById("contentTitle").innerText = "Watch Videos";
   document.getElementById("contentText").innerHTML =

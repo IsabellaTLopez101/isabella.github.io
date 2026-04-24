@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-  
-  <title>Zoo Explorer</title>
-
   <style>
     .menu-box {
       background-color: #2f6f4e;
@@ -86,7 +82,7 @@
 
 </div>
   <script>
-   function showMenu(choice) {
+  function showMenu(choice) {
   document.getElementById("menuScreen").style.display = "none";
   document.getElementById("contentScreen").style.display = "block";
 
@@ -94,17 +90,23 @@
     document.getElementById("contentTitle").innerText = "Feeding Time";
     document.getElementById("contentText").innerText = "Next feeding: 2:30 PM";
   }
+
   else if (choice === 'info') {
-    document.getElementById("contentTitle").innerText = "Animal Info";
-    document.getElementById("contentText").innerText = "Lions are social big cats.";
+    document.getElementById("contentTitle").innerText = "About the Lion";
+    document.getElementById("contentText").innerText =
+      "Diet: Carnivore\nHabitat: Savanna\nLifespan: 10–14 years\nFun Fact: Lions live in groups called prides.";
   }
+
   else if (choice === 'videos') {
-    document.getElementById("contentTitle").innerText = "Videos";
-    document.getElementById("contentText").innerText = "Video links will go here.";
+    document.getElementById("contentTitle").innerText = "Watch Videos";
+    document.getElementById("contentText").innerHTML =
+      '<a href="https://lazoo.org/" target="_blank">Click here to watch videos from the LA Zoo</a>';
   }
+
   else if (choice === 'photo') {
     document.getElementById("contentTitle").innerText = "Photo Memory";
-    document.getElementById("contentText").innerText = "Camera feature coming soon.";
+    document.getElementById("contentText").innerText =
+      "Camera feature coming next!";
   }
 }
 

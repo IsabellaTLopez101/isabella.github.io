@@ -7,16 +7,14 @@
     body {
   font-family: 'Courier New', monospace;
 }
-    h1 {
-  font-size: 40px;
+  h1 {
+  text-align: center;
   font-weight: 600;
 }
 
 h2 {
-  font-size: 28px;
-  font-weight: 500;
+  text-align: center;
 }
-
 p {
   font-size: 18px;
 }
@@ -48,21 +46,23 @@ p {
   
 <style>
   .menu-box {
-  background-color: #2f6f4e;
+  background-color: #0B6B2E; /* zoo green */
   color: white;
   padding: 20px;
-  margin: 10px 0;
+  margin: 12px 0;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 12px;
   font-size: 18px;
   cursor: pointer;
 
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
 }
 
 .menu-box:hover {
+  background-color: #128a3f; /* brighter green */
   transform: scale(1.05);
-  box-shadow: 0px 6px 15px rgba(0,0,0,0.2);
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.3);
 }
 
 .menu-box:active {

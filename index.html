@@ -84,9 +84,8 @@
   document.getElementById("menuScreen").style.display = "none";
   document.getElementById("contentScreen").style.display = "block";
 
-if (choice === 'discover') {
-  document.getElementById("contentTitle").innerText = "Discover This Animal";
-  '<a href="https://lazoo.org/explore-your-zoo/our-animals/mammals/meerkat/" target="_blank">Visit the LA Zoo animal page</a>';
+ if (choice === 'discover') {
+  window.open("https://lazoo.org/explore-your-zoo/our-animals/mammals/meerkat/", "_blank");
 }
 
 else if (choice === 'quiz') {

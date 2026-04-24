@@ -3,11 +3,15 @@
 <head>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-  font-family: 'Courier New', monospace;
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #3E6F95;
+  color: white;
 }
-  h1 {
+
+h1 {
   text-align: center;
   font-weight: 600;
 }
@@ -15,38 +19,14 @@
 h2 {
   text-align: center;
 }
+
 p {
   font-size: 18px;
 }
-    .menu-box {
-      background-color: #2f6f4e;
-      color: white;
-      padding: 20px;
-      margin: 10px 0;
-      text-align: center;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
-    }
 
-    #contentText {
-      font-size: 22px;
-    }
-
-    #contentTitle {
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    #contentScreen {
-      text-align: center;
-      padding: 20px;
-    }  
-</style>
-  
-<style>
-  .menu-box {
-  background-color: #0B6B2E; /* zoo green */
+/* MENU BOX STYLE */
+.menu-box {
+  background-color: #0B6B2E;
   color: white;
   padding: 20px;
   margin: 12px 0;
@@ -59,7 +39,7 @@ p {
 }
 
 .menu-box:hover {
-  background-color: #128a3f; /* brighter green */
+  background-color: #128a3f;
   transform: scale(1.05);
   box-shadow: 0px 6px 15px rgba(0,0,0,0.3);
 }
@@ -67,16 +47,33 @@ p {
 .menu-box:active {
   transform: scale(0.97);
 }
-</style>
-  
-</head>
-<body>
-  <h1>Zoo Explorer</h1>
 
-  <h2>Meerkat 🐾</h2>
-  
-  <div id="menuScreen">
+/* CONTENT SCREEN */
+#contentText {
+  font-size: 22px;
+}
+
+#contentTitle {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#contentScreen {
+  text-align: center;
+  padding: 20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Zoo Explorer</h1>
+<h2>Meerkat 🐾</h2>
+
+<div id="menuScreen">
   <p>Choose what you want to learn:</p>
+
   <div class="menu-box" onclick="showMenu('discover')">
     🐾 Discover This Animal
   </div>
@@ -95,18 +92,16 @@ p {
 
   <div class="menu-box" onclick="showMenu('progress')">
     ⭐ My Progress
-  </div>  
   </div>
-  
-  <div id="contentScreen" style="display: none;">
+</div>
 
+<div id="contentScreen" style="display: none;">
   <h2 id="contentTitle"></h2>
   <p id="contentText"></p>
-
   <button onclick="goBack()">Back</button>
-
 </div>
- <script>
+
+<script>
 const questions = [
   {
     question: "What do meerkats eat?",
@@ -134,31 +129,32 @@ function showMenu(choice) {
   }
 
   else if (choice === 'quiz') {
-  document.getElementById("contentTitle").innerText = "Quick Quiz";
+    document.getElementById("contentTitle").innerText = "Quick Quiz";
 
-  let randomIndex = Math.floor(Math.random() * questions.length);
-  let q = questions[randomIndex];
+    let randomIndex = Math.floor(Math.random() * questions.length);
+    let q = questions[randomIndex];
 
-  document.getElementById("contentText").innerHTML = `
-    <p>${q.question}</p>
+    document.getElementById("contentText").innerHTML = `
+      <p>${q.question}</p>
 
-    <div class="menu-box" onclick="checkAnswer(0, ${q.correct})">
-      ${q.options[0]}
-    </div>
+      <div class="menu-box" onclick="checkAnswer(0, ${q.correct})">
+        ${q.options[0]}
+      </div>
 
-    <div class="menu-box" onclick="checkAnswer(1, ${q.correct})">
-      ${q.options[1]}
-    </div>
+      <div class="menu-box" onclick="checkAnswer(1, ${q.correct})">
+        ${q.options[1]}
+      </div>
 
-    <div class="menu-box" onclick="checkAnswer(2, ${q.correct})">
-      ${q.options[2]}
-    </div>
-  `;
-}
+      <div class="menu-box" onclick="checkAnswer(2, ${q.correct})">
+        ${q.options[2]}
+      </div>
+    `;
+  }
+
   else if (choice === 'videos') {
     document.getElementById("contentTitle").innerText = "Watch Videos";
     document.getElementById("contentText").innerHTML =
-      '<a href="https://lazoo.org/" target="_blank">Visit the LA Zoo animal page</a>';
+      '<a href="https://lazoo.org/" target="_blank" style="color:white;">Visit the LA Zoo page</a>';
   }
 
   else if (choice === 'photo') {
@@ -176,8 +172,7 @@ function showMenu(choice) {
 function checkAnswer(selected, correct) {
   if (selected === correct) {
     document.getElementById("contentText").innerHTML = "Correct! 🎉";
-  }
-  else {
+  } else {
     document.getElementById("contentText").innerHTML = "Wrong 😅 Try again!";
   }
 }
@@ -187,5 +182,6 @@ function goBack() {
   document.getElementById("contentScreen").style.display = "none";
 }
 </script>
+
 </body>
 </html>

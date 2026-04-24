@@ -98,6 +98,19 @@
 }
 
 else if (choice === 'quiz') {
+
+  const questions = [
+  {
+    question: "What do meerkats eat?",
+    options: ["Plants", "Insects", "Fish"],
+    correct: 1
+  },
+  {
+    question: "Where do meerkats live?",
+    options: ["Ocean", "Desert", "Jungle"],
+    correct: 1
+  }
+  ];
   document.getElementById("contentTitle").innerText = "Quick Quiz";
 
   let randomIndex = Math.floor(Math.random() * questions.length);

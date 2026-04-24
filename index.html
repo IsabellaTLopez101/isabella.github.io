@@ -116,20 +116,21 @@ function showMenu(choice) {
   }
 
   else if (choice === 'quiz') {
-    document.getElementById("contentTitle").innerText = "Quick Quiz";
-
-    let randomIndex = Math.floor(Math.random() * questions.length);
-    let q = questions[randomIndex];
-
    document.getElementById("contentText").innerHTML = `
   <p>${q.question}</p>
 
-  <div class="menu-box" onclick="checkAnswer(0, ${q.correct})">${q.options[0]}</div>
+  <div class="menu-box" onclick="checkAnswer(0, ${q.correct})">
+    ${q.options[0]}
+  </div>
 
-  <div class="menu-box" onclick="checkAnswer(1, ${q.correct})">${q.options[1]}</div>
+  <div class="menu-box" onclick="checkAnswer(1, ${q.correct})">
+    ${q.options[1]}
+  </div>
 
-  <div class="menu-box" onclick="checkAnswer(2, ${q.correct})">${q.options[2]}</div>`;
-  }
+  <div class="menu-box" onclick="checkAnswer(2, ${q.correct})">
+    ${q.options[2]}
+  </div>
+`;
 
   else if (choice === 'videos') {
     document.getElementById("contentTitle").innerText = "Watch Videos";

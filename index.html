@@ -27,44 +27,63 @@
 <h1>Zoo Explorer 🐾</h1>
 <h2>Lion</h2>
 
-<p>What would you like to learn today?</p>
+<div id="menuScreen">
 
-<div class="menu-box" onclick="showMenu('feeding')">
-  Next Feeding Time
+  <p>What would you like to do?</p>
+
+  <div class="menu-box" onclick="showMenu('feeding')">
+    Next Feeding Time
+  </div>
+
+  <div class="menu-box" onclick="showMenu('info')">
+    Animal Information
+  </div>
+
+  <div class="menu-box" onclick="showMenu('videos')">
+    Watch Videos
+  </div>
+
+  <div class="menu-box" onclick="showMenu('photo')">
+    Take a Photo Memory
+  </div>
+
 </div>
 
-<div class="menu-box" onclick="showMenu('info')">
-  Animal Information
+<div id="contentScreen" style="display: none;">
+
+  <h2 id="contentTitle"></h2>
+  <p id="contentText"></p>
+
+  <button onclick="goBack()">Back to Menu</button>
+
 </div>
-
-<div class="menu-box" onclick="showMenu('videos')">
-  Watch Videos
-</div>
-
-<div class="menu-box" onclick="showMenu('photo')">
-  Take a Photo Memory
-</div>
-
-<p id="menuResult">Choose an option above.</p>
-
-  <h3> Your selection:</h3>
-  <p id= "menuResult">Choose an option above.</p>
-
   <script>
-    function showMenu(choice){
-      if (choice == 'feeding'){
-        document.getElementById('menuResult').innerText = 'Next feeding time: 2:30 PM';
-      }
-      else if( choice == 'info'){
-        document.getElementById('menuResult').innerText = 'Lions razor like tongues';
-      }
-      else if(choice == 'videos'){
-        document.getElementById('menuResult').innerText = 'The video link :D';
-      }
-      else if(choice == 'photos'){
-        document.getElementById('menuResult').innerText = 'Photo memory feature will open here.';
-      }   
-    }
+   function showMenu(choice) {
+  document.getElementById("menuScreen").style.display = "none";
+  document.getElementById("contentScreen").style.display = "block";
+
+  if (choice === 'feeding') {
+    document.getElementById("contentTitle").innerText = "Feeding Time";
+    document.getElementById("contentText").innerText = "Next feeding: 2:30 PM";
+  }
+  else if (choice === 'info') {
+    document.getElementById("contentTitle").innerText = "Animal Info";
+    document.getElementById("contentText").innerText = "Lions are social big cats.";
+  }
+  else if (choice === 'videos') {
+    document.getElementById("contentTitle").innerText = "Videos";
+    document.getElementById("contentText").innerText = "Video links will go here.";
+  }
+  else if (choice === 'photo') {
+    document.getElementById("contentTitle").innerText = "Photo Memory";
+    document.getElementById("contentText").innerText = "Camera feature coming soon.";
+  }
+}
+
+function goBack() {
+  document.getElementById("menuScreen").style.display = "block";
+  document.getElementById("contentScreen").style.display = "none";
+}
   </script>
 </body>
 </html>

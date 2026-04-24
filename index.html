@@ -56,6 +56,7 @@
   <h1>Zoo Explorer</h1>
 
   <h2>Meerkat 🐾</h2>
+  
   <div id="menuScreen">
   <p>Choose what you want to learn:</p>
   <div class="menu-box" onclick="showMenu('discover')">
@@ -76,7 +77,15 @@
 
   <div class="menu-box" onclick="showMenu('progress')">
     ⭐ My Progress
+  </div>  
   </div>
+  
+  <div id="contentScreen" style="display: none;">
+
+  <h2 id="contentTitle"></h2>
+  <p id="contentText"></p>
+
+  <button onclick="goBack()">Back</button>
 
 </div>
   <script>

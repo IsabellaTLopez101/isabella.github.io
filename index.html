@@ -35,9 +35,11 @@ p {
   font-size: 18px;
   cursor: pointer;
 
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-}
+  display: block; /* IMPORTANT */
+  width: 100%;     /* ensures full hover area */
 
+  transition: all 0.2s ease;
+}
 .menu-box:hover {
   background-color: #128a3f;
   transform: scale(1.05);

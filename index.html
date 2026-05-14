@@ -113,13 +113,61 @@ p {
     padding: 25px;
     margin: 16px auto;
   }
-}  
+} 
+
+  #badgePopup {
+  position: fixed;
+  top: 40%;
+  left: -300px;
+  background-color: #3573A5;
+  color: white;
+  padding: 20px 30px;
+  border-radius: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  z-index: 999;
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.3);
+  display: none;
+}
+
+.badge-animate {
+  display: block !important;
+  animation: badgeBounce 2.5s ease-in-out;
+}
+
+@keyframes badgeBounce {
+  0% {
+    left: -300px;
+    transform: scale(0.8);
+  }
+
+  35% {
+    left: 50%;
+    transform: translateX(-50%) scale(1.2);
+  }
+
+  55% {
+    left: 50%;
+    transform: translateX(-50%) scale(0.95);
+  }
+
+  75% {
+    left: 50%;
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  100% {
+    left: 110%;
+    transform: scale(0.8);
+  }
+}
 </style>
 
 </head>
 
 <body>
-
+<div id="badgePopup">🏅 Animal Explorer Badge!</div>
+  
 <!-- HEADER -->
 <div class="header">
   <img src="logo.png" alt="LA Zoo Logo">
@@ -162,7 +210,9 @@ p {
 </div>
 
 </div>
-
+  
+<script src="badges.js"></script>
+  
 <script>
   // READ QR CODE URL
 const params = new URLSearchParams(window.location.search);
@@ -204,6 +254,7 @@ const questions = [
 ];
 
 function showMenu(choice) {
+  showBadge();
   document.getElementById("menuScreen").style.display = "none";
   document.getElementById("contentScreen").style.display = "block";
 

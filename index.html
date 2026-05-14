@@ -260,7 +260,6 @@ function showBadge() {
   badge.classList.add("badge-animate");
 }
 function showMenu(choice) {
-  showBadge();
   document.getElementById("menuScreen").style.display = "none";
   document.getElementById("contentScreen").style.display = "block";
 
@@ -321,6 +320,9 @@ function goBack() {
   document.getElementById("menuScreen").style.display = "block";
   document.getElementById("contentScreen").style.display = "none";
 }
+  window.onload = function() {
+  showBadge();
+};
 </script>
 
 </body>

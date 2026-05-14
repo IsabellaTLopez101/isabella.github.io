@@ -167,7 +167,7 @@ p {
 <div id="badgePopup">
   <img src="badge.png" alt="Zoo Badge">
 </div>
-  
+
 <!-- HEADER -->
 <div class="header">
   <img src="logo.png" alt="LA Zoo Logo">
@@ -212,7 +212,8 @@ p {
 </div>
 
 <script>
-  // READ QR CODE URL
+
+// READ QR CODE URL
 const params = new URLSearchParams(window.location.search);
 const animal = params.get("animal");
 
@@ -232,7 +233,8 @@ else if (animal === "flamingo") {
 else {
   document.getElementById("animalName").innerText = "Zoo Explorer";
 }
-  
+
+// QUIZ QUESTIONS
 const questions = [
   {
     question: "What do meerkats eat?",
@@ -250,6 +252,8 @@ const questions = [
     correct: 0
   }
 ];
+
+// BADGE FUNCTION
 function showBadge() {
   const badge = document.getElementById("badgePopup");
 
@@ -265,8 +269,10 @@ function showBadge() {
     badge.style.display = "none";
   }, 2500);
 }
-}
+
+// MENU FUNCTION
 function showMenu(choice) {
+
   document.getElementById("menuScreen").style.display = "none";
   document.getElementById("contentScreen").style.display = "block";
 
@@ -299,36 +305,49 @@ function showMenu(choice) {
 
   else if (choice === 'videos') {
     document.getElementById("contentTitle").innerText = "Watch Videos";
+
     document.getElementById("contentText").innerHTML =
       '<a href="https://youtu.be/UTkarhKk2qg?si=wD_NFrOFWl3S79u_&t=507" target="_blank">Visit the LA Zoo page</a>';
   }
 
   else if (choice === 'photo') {
     document.getElementById("contentTitle").innerText = "Photo Memory";
-    document.getElementById("contentText").innerText = "Photo memory feature coming soon!";
+
+    document.getElementById("contentText").innerText =
+      "Photo memory feature coming soon!";
   }
 
   else if (choice === 'progress') {
     document.getElementById("contentTitle").innerText = "My Progress";
+
     document.getElementById("contentText").innerText =
       "Animals discovered: 0 / 3\nBadges earned: none yet";
   }
 }
 
+// CHECK QUIZ ANSWERS
 function checkAnswer(selected, correct) {
+
   if (selected === correct) {
-    document.getElementById("contentText").innerHTML = "Correct! 🎉";
-  } else {
-    document.getElementById("contentText").innerHTML = "Wrong 😅 Try again!";
+    document.getElementById("contentText").innerHTML =
+      "Correct! 🎉";
+  }
+
+  else {
+    document.getElementById("contentText").innerHTML =
+      "Wrong 😅 Try again!";
   }
 }
 
+// GO BACK
 function goBack() {
   document.getElementById("menuScreen").style.display = "block";
   document.getElementById("contentScreen").style.display = "none";
 }
 
+// SHOW BADGE ON PAGE OPEN
 showBadge();
+
 </script>
 
 </body>

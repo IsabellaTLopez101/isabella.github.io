@@ -115,21 +115,19 @@ p {
   }
 } 
 
-  #badgePopup {
+ #badgePopup {
   position: fixed;
   top: 40%;
   left: -300px;
-  background-color: #3573A5;
-  color: white;
-  padding: 20px 30px;
-  border-radius: 20px;
-  font-size: 22px;
-  font-weight: bold;
   z-index: 999;
   box-shadow: 0px 6px 15px rgba(0,0,0,0.3);
   display: none;
 }
 
+#badgePopup img {
+  width: 180px;
+}
+  
 .badge-animate {
   display: block !important;
   animation: badgeBounce 2.5s ease-in-out;
@@ -166,7 +164,9 @@ p {
 </head>
 
 <body>
-<div id="badgePopup">🏅 Animal Explorer Badge!</div>
+<div id="badgePopup">
+  <img src="badge.png" alt="Zoo Badge">
+</div>
   
 <!-- HEADER -->
 <div class="header">

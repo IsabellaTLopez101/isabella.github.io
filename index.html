@@ -96,7 +96,7 @@ p {
 <div class="main-content">
 
 <h1>Zoo Explorer</h1>
-<h2>Meerkat 🐾</h2>
+<h2 id="animalName"></h2>
 
 <div id="menuScreen">
   <p>Choose what you want to learn:</p>
@@ -131,6 +131,27 @@ p {
 </div>
 
 <script>
+  // READ QR CODE URL
+const params = new URLSearchParams(window.location.search);
+const animal = params.get("animal");
+
+// CHANGE PAGE TITLE BASED ON QR
+if (animal === "meerkat") {
+  document.getElementById("animalName").innerText = "Meerkat 🐾";
+}
+
+else if (animal === "gorilla") {
+  document.getElementById("animalName").innerText = "Gorilla 🦍";
+}
+
+else if (animal === "flamingo") {
+  document.getElementById("animalName").innerText = "Flamingo 🦩";
+}
+
+else {
+  document.getElementById("animalName").innerText = "Zoo Explorer";
+}
+  
 const questions = [
   {
     question: "What do meerkats eat?",

@@ -258,6 +258,10 @@ function showBadge() {
   void badge.offsetWidth;
 
   badge.classList.add("badge-animate");
+
+  setTimeout(function() {
+    badge.style.display = "none";
+  }, 2500);
 }
 function showMenu(choice) {
   document.getElementById("menuScreen").style.display = "none";

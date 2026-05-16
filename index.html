@@ -4,12 +4,13 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
   font-family: 'Poppins', sans-serif;
   background-color: white;
   margin: 0;
-} 
+}
 
 /* HEADER (LA Zoo style) */
 .header {
@@ -54,7 +55,6 @@ p {
   font-size: 18px;
   cursor: pointer;
   border: 2px solid #360805;
-
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -81,6 +81,8 @@ p {
   text-align: center;
   padding: 20px;
 }
+
+/* MOBILE */
 @media (max-width: 600px) {
   .header {
     padding: 35px 0;
@@ -113,22 +115,19 @@ p {
     padding: 25px;
     margin: 16px auto;
   }
-} 
+}
 
+/* BADGE OVERLAY */
 #badgePopup {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-
   background-color: rgba(0,0,0,0.55);
-
   display: none;
-
   justify-content: center;
   align-items: center;
-
   z-index: 9999;
 }
 
@@ -146,7 +145,6 @@ p {
 }
 
 @keyframes badgeBounce {
-
   0% {
     opacity: 0;
     transform: scale(0);
@@ -178,7 +176,10 @@ p {
     opacity: 0;
     transform: scale(0);
   }
-  .quiz-options {
+}
+
+/* IMAGE QUIZ */
+.quiz-options {
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -192,6 +193,12 @@ p {
   width: 180px;
   cursor: pointer;
   background-color: white;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.image-option:hover {
+  transform: scale(1.04);
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.2);
 }
 
 .image-option img {
@@ -199,6 +206,11 @@ p {
   height: 130px;
   object-fit: cover;
   border-radius: 12px;
+}
+
+.image-option p {
+  font-size: 16px;
+  margin: 8px 0 0;
 }
 
 #timerText {
@@ -234,12 +246,12 @@ p {
   75% { transform: translateX(-12px); }
   100% { transform: translateX(0); }
 }
-}
 </style>
 
 </head>
 
 <body>
+
 <div id="badgePopup">
   <img src="badge.png" alt="Zoo Badge">
 </div>
@@ -288,7 +300,6 @@ p {
 </div>
 
 <script>
-
 // READ QR CODE URL
 const params = new URLSearchParams(window.location.search);
 const animal = params.get("animal");
@@ -297,46 +308,24 @@ const animal = params.get("animal");
 if (animal === "meerkat") {
   document.getElementById("animalName").innerText = "Meerkat 🐾";
 }
-
 else if (animal === "gorilla") {
   document.getElementById("animalName").innerText = "Gorilla 🦍";
 }
-
 else if (animal === "flamingo") {
   document.getElementById("animalName").innerText = "Flamingo 🦩";
 }
-
 else {
   document.getElementById("animalName").innerText = "Zoo Explorer";
 }
-
-// QUIZ QUESTIONS
-const questions = [
-  {
-    question: "What do meerkats eat?",
-    options: ["Plants", "Insects", "Fish"],
-    correct: 1
-  },
-  {
-    question: "What do meerkats do to protect their group?",
-    options: ["Stand guard", "Hide underwater", "Build nests in trees"],
-    correct: 0
-  },
-  {
-    question: "Where do meerkats usually live?",
-    options: ["Deserts and grasslands", "The ocean", "Snowy mountains"],
-    correct: 0
-  }
-];
 
 // BADGE FUNCTION
 function showBadge() {
   const badge = document.getElementById("badgePopup");
 
   badge.style.display = "flex";
-
   badge.classList.remove("badge-animate");
 
+  // Restart animation every time it is called
   void badge.offsetWidth;
 
   badge.classList.add("badge-animate");
@@ -346,6 +335,8 @@ function showBadge() {
     badge.classList.remove("badge-animate");
   }, 2500);
 }
+
+// IMAGE QUIZ DATA
 let timeLeft = 10;
 let timer;
 
@@ -371,9 +362,9 @@ const imageQuestion = {
   ]
 };
 
+// START IMAGE QUIZ
 function startImageQuiz() {
   clearInterval(timer);
-
   timeLeft = 10;
 
   document.getElementById("contentTitle").innerText = "Quick Quiz";
@@ -405,7 +396,11 @@ function startImageQuiz() {
 
   timer = setInterval(function() {
     timeLeft--;
-    document.getElementById("timerText").innerText = "Time left: " + timeLeft;
+    const timerText = document.getElementById("timerText");
+
+    if (timerText) {
+      timerText.innerText = "Time left: " + timeLeft;
+    }
 
     if (timeLeft <= 0) {
       clearInterval(timer);
@@ -414,6 +409,7 @@ function startImageQuiz() {
   }, 1000);
 }
 
+// SELECT IMAGE ANSWER
 function selectImageAnswer(selected) {
   clearInterval(timer);
 
@@ -425,13 +421,16 @@ function selectImageAnswer(selected) {
   if (selected === imageQuestion.correct) {
     mascot.classList.add("meerkat-thrive");
     result.innerText = imageQuestion.options[selected].result;
-  } else {
+  }
+  else {
     mascot.classList.add("meerkat-struggle");
     result.innerText = imageQuestion.options[selected].result;
   }
 }
+
 // MENU FUNCTION
 function showMenu(choice) {
+  clearInterval(timer);
 
   document.getElementById("menuScreen").style.display = "none";
   document.getElementById("contentScreen").style.display = "block";
@@ -439,76 +438,36 @@ function showMenu(choice) {
   if (choice === 'discover') {
     window.location.href = "https://lazoo.org/explore-your-zoo/our-animals/mammals/meerkat/";
   }
-
   else if (choice === 'quiz') {
-  startImageQuiz();
+    startImageQuiz();
   }
-
-    let randomIndex = Math.floor(Math.random() * questions.length);
-    let q = questions[randomIndex];
-
-    document.getElementById("contentText").innerHTML = `
-      <p>${q.question}</p>
-
-      <div class="menu-box" onclick="checkAnswer(0, ${q.correct})">
-        ${q.options[0]}
-      </div>
-
-      <div class="menu-box" onclick="checkAnswer(1, ${q.correct})">
-        ${q.options[1]}
-      </div>
-
-      <div class="menu-box" onclick="checkAnswer(2, ${q.correct})">
-        ${q.options[2]}
-      </div>
-    `;
-  }
-
   else if (choice === 'videos') {
     document.getElementById("contentTitle").innerText = "Watch Videos";
-
     document.getElementById("contentText").innerHTML =
-      '<a href="https://youtu.be/UTkarhKk2qg?si=wD_NFrOFWl3S79u_&t=507" target="_blank">Visit the LA Zoo page</a>';
+      '<a href="https://youtu.be/UTkarhKk2qg?si=wD_NFrOFWl3S79u_&t=507" target="_blank">Watch the meerkat video</a>';
   }
-
   else if (choice === 'photo') {
     document.getElementById("contentTitle").innerText = "Photo Memory";
-
     document.getElementById("contentText").innerText =
       "Photo memory feature coming soon!";
   }
-
   else if (choice === 'progress') {
     document.getElementById("contentTitle").innerText = "My Progress";
-
     document.getElementById("contentText").innerText =
       "Animals discovered: 0 / 3\nBadges earned: none yet";
   }
 }
 
-// CHECK QUIZ ANSWERS
-function checkAnswer(selected, correct) {
-
-  if (selected === correct) {
-    document.getElementById("contentText").innerHTML =
-      "Correct! 🎉";
-  }
-
-  else {
-    document.getElementById("contentText").innerHTML =
-      "Wrong 😅 Try again!";
-  }
-}
-
 // GO BACK
 function goBack() {
+  clearInterval(timer);
+
   document.getElementById("menuScreen").style.display = "block";
   document.getElementById("contentScreen").style.display = "none";
 }
 
 // SHOW BADGE ON PAGE OPEN
 showBadge();
-
 </script>
 
 </body>

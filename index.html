@@ -178,6 +178,62 @@ p {
     opacity: 0;
     transform: scale(0);
   }
+  .quiz-options {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.image-option {
+  border: 3px solid #360805;
+  border-radius: 15px;
+  padding: 10px;
+  width: 180px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.image-option img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+#timerText {
+  font-weight: bold;
+  color: #3573A5;
+}
+
+#meerkatMascot {
+  font-size: 50px;
+  margin-top: 20px;
+  transition: transform 0.5s;
+}
+
+.meerkat-thrive {
+  animation: thriveBounce 1s ease-in-out;
+}
+
+.meerkat-struggle {
+  animation: struggleShake 0.6s ease-in-out;
+}
+
+@keyframes thriveBounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.4) rotate(8deg); }
+  70% { transform: scale(0.9) rotate(-5deg); }
+  100% { transform: scale(1); }
+}
+
+@keyframes struggleShake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-12px); }
+  50% { transform: translateX(12px); }
+  75% { transform: translateX(-12px); }
+  100% { transform: translateX(0); }
+}
 }
 </style>
 
@@ -290,7 +346,90 @@ function showBadge() {
     badge.classList.remove("badge-animate");
   }, 2500);
 }
+let timeLeft = 10;
+let timer;
 
+const imageQuestion = {
+  question: "Which environment helps a meerkat thrive?",
+  correct: 0,
+  options: [
+    {
+      text: "Desert / dry grassland",
+      image: "MeerkatsCorrectLive.png",
+      result: "Correct! The meerkat thrives here. 🌵"
+    },
+    {
+      text: "Ocean",
+      image: "MeerkatWrongOceanlive.png",
+      result: "Not quite. Meerkats do not live in the ocean. 🌊"
+    },
+    {
+      text: "Snowy habitat",
+      image: "MeerkatSnowyWrongLive.png",
+      result: "Not quite. Snowy habitats are not ideal for meerkats. ❄️"
+    }
+  ]
+};
+
+function startImageQuiz() {
+  clearInterval(timer);
+
+  timeLeft = 10;
+
+  document.getElementById("contentTitle").innerText = "Quick Quiz";
+
+  document.getElementById("contentText").innerHTML = `
+    <p>${imageQuestion.question}</p>
+    <p id="timerText">Time left: ${timeLeft}</p>
+
+    <div class="quiz-options">
+      <div class="image-option" onclick="selectImageAnswer(0)">
+        <img src="${imageQuestion.options[0].image}" alt="${imageQuestion.options[0].text}">
+        <p>${imageQuestion.options[0].text}</p>
+      </div>
+
+      <div class="image-option" onclick="selectImageAnswer(1)">
+        <img src="${imageQuestion.options[1].image}" alt="${imageQuestion.options[1].text}">
+        <p>${imageQuestion.options[1].text}</p>
+      </div>
+
+      <div class="image-option" onclick="selectImageAnswer(2)">
+        <img src="${imageQuestion.options[2].image}" alt="${imageQuestion.options[2].text}">
+        <p>${imageQuestion.options[2].text}</p>
+      </div>
+    </div>
+
+    <div id="meerkatMascot">🦦</div>
+    <p id="quizResult"></p>
+  `;
+
+  timer = setInterval(function() {
+    timeLeft--;
+    document.getElementById("timerText").innerText = "Time left: " + timeLeft;
+
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      document.getElementById("quizResult").innerText = "Time's up! ⏰";
+    }
+  }, 1000);
+}
+
+function selectImageAnswer(selected) {
+  clearInterval(timer);
+
+  const mascot = document.getElementById("meerkatMascot");
+  const result = document.getElementById("quizResult");
+
+  mascot.className = "";
+
+  if (selected === imageQuestion.correct) {
+    mascot.classList.add("meerkat-thrive");
+    result.innerText = imageQuestion.options[selected].result;
+  } else {
+    mascot.classList.add("meerkat-struggle");
+    result.innerText = imageQuestion.options[selected].result;
+  }
+}
 // MENU FUNCTION
 function showMenu(choice) {
 
@@ -302,7 +441,8 @@ function showMenu(choice) {
   }
 
   else if (choice === 'quiz') {
-    document.getElementById("contentTitle").innerText = "Quick Quiz";
+  startImageQuiz();
+  }
 
     let randomIndex = Math.floor(Math.random() * questions.length);
     let q = questions[randomIndex];

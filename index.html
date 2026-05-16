@@ -12,7 +12,7 @@ body {
   margin: 0;
 }
 
-/* HEADER (LA Zoo style) */
+/* HEADER */
 .header {
   background-color: #3573A5;
   padding: 25px 0;
@@ -82,42 +82,7 @@ p {
   padding: 20px;
 }
 
-/* MOBILE */
-@media (max-width: 600px) {
-  .header {
-    padding: 35px 0;
-  }
-
-  .header img {
-    width: 260px;
-  }
-
-  .main-content {
-    padding: 25px;
-  }
-
-  h1 {
-    font-size: 34px;
-  }
-
-  h2 {
-    font-size: 28px;
-  }
-
-  p {
-    font-size: 24px;
-  }
-
-  .menu-box {
-    width: 90%;
-    max-width: none;
-    font-size: 22px;
-    padding: 25px;
-    margin: 16px auto;
-  }
-}
-
-/* BADGE OVERLAY */
+/* BADGE POPUP */
 #badgePopup {
   position: fixed;
   top: 0;
@@ -182,69 +147,143 @@ p {
 .quiz-options {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 25px;
   flex-wrap: wrap;
+  position: relative;
+  margin-top: 20px;
 }
 
 .image-option {
   border: 3px solid #360805;
-  border-radius: 15px;
-  padding: 10px;
-  width: 180px;
+  border-radius: 18px;
+  padding: 15px;
+  width: 260px;
   cursor: pointer;
   background-color: white;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .image-option:hover {
-  transform: scale(1.04);
+  transform: scale(1.03);
   box-shadow: 0px 6px 15px rgba(0,0,0,0.2);
 }
 
 .image-option img {
   width: 100%;
-  height: 130px;
+  height: 190px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 .image-option p {
-  font-size: 16px;
-  margin: 8px 0 0;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 #timerText {
   font-weight: bold;
   color: #3573A5;
+  font-size: 26px;
 }
 
-#meerkatMascot {
-  font-size: 50px;
+#quizResult {
   margin-top: 20px;
-  transition: transform 0.5s;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-.meerkat-thrive {
-  animation: thriveBounce 1s ease-in-out;
+#meerkatWalker {
+  width: 100px;
+  position: fixed;
+  bottom: 40px;
+  left: 20px;
+  z-index: 999;
+  transition: left 1s ease-in-out, top 1s ease-in-out;
 }
 
-.meerkat-struggle {
-  animation: struggleShake 0.6s ease-in-out;
+.jump {
+  animation: meerkatJump 0.8s ease-in-out;
 }
 
-@keyframes thriveBounce {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.4) rotate(8deg); }
-  70% { transform: scale(0.9) rotate(-5deg); }
-  100% { transform: scale(1); }
+.run-away {
+  animation: meerkatRunAway 1s ease-in-out forwards;
 }
 
-@keyframes struggleShake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-12px); }
-  50% { transform: translateX(12px); }
-  75% { transform: translateX(-12px); }
-  100% { transform: translateX(0); }
+@keyframes meerkatJump {
+  0% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-80px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes meerkatRunAway {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(500px);
+    opacity: 0;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .header {
+    padding: 35px 0;
+  }
+
+  .header img {
+    width: 260px;
+  }
+
+  .main-content {
+    padding: 25px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  p {
+    font-size: 24px;
+  }
+
+  .menu-box {
+    width: 90%;
+    max-width: none;
+    font-size: 22px;
+    padding: 25px;
+    margin: 16px auto;
+  }
+
+  #badgePopup img {
+    width: 330px;
+  }
+
+  .image-option {
+    width: 90%;
+  }
+
+  .image-option img {
+    height: 220px;
+  }
+
+  #meerkatWalker {
+    width: 85px;
+  }
 }
 </style>
 
@@ -256,12 +295,10 @@ p {
   <img src="badge.png" alt="Zoo Badge">
 </div>
 
-<!-- HEADER -->
 <div class="header">
   <img src="logo.png" alt="LA Zoo Logo">
 </div>
 
-<!-- MAIN CONTENT -->
 <div class="main-content">
 
 <h1>Zoo Explorer</h1>
@@ -293,39 +330,38 @@ p {
 
 <div id="contentScreen" style="display: none;">
   <h2 id="contentTitle"></h2>
-  <p id="contentText"></p>
+  <div id="contentText"></div>
   <button onclick="goBack()">Back</button>
 </div>
 
 </div>
 
 <script>
-// READ QR CODE URL
 const params = new URLSearchParams(window.location.search);
 const animal = params.get("animal");
 
-// CHANGE PAGE TITLE BASED ON QR
 if (animal === "meerkat") {
   document.getElementById("animalName").innerText = "Meerkat 🐾";
 }
+
 else if (animal === "gorilla") {
   document.getElementById("animalName").innerText = "Gorilla 🦍";
 }
+
 else if (animal === "flamingo") {
   document.getElementById("animalName").innerText = "Flamingo 🦩";
 }
+
 else {
   document.getElementById("animalName").innerText = "Zoo Explorer";
 }
 
-// BADGE FUNCTION
 function showBadge() {
   const badge = document.getElementById("badgePopup");
 
   badge.style.display = "flex";
   badge.classList.remove("badge-animate");
 
-  // Restart animation every time it is called
   void badge.offsetWidth;
 
   badge.classList.add("badge-animate");
@@ -336,7 +372,6 @@ function showBadge() {
   }, 2500);
 }
 
-// IMAGE QUIZ DATA
 let timeLeft = 10;
 let timer;
 
@@ -345,7 +380,7 @@ const imageQuestion = {
   correct: 0,
   options: [
     {
-      text: "Desert / dry grassland",
+      text: "Dry Grassland",
       image: "MeerkatsCorrectLive.png",
       result: "Correct! The meerkat thrives here. 🌵"
     },
@@ -355,16 +390,16 @@ const imageQuestion = {
       result: "Not quite. Meerkats do not live in the ocean. 🌊"
     },
     {
-      text: "Snowy habitat",
+      text: "Snow",
       image: "MeerkatSnowyWrongLive.png",
       result: "Not quite. Snowy habitats are not ideal for meerkats. ❄️"
     }
   ]
 };
 
-// START IMAGE QUIZ
 function startImageQuiz() {
   clearInterval(timer);
+
   timeLeft = 10;
 
   document.getElementById("contentTitle").innerText = "Quick Quiz";
@@ -390,12 +425,14 @@ function startImageQuiz() {
       </div>
     </div>
 
-    <div id="meerkatMascot">🦦</div>
+    <img id="meerkatWalker" src="Meerkat.png" alt="Meerkat">
+
     <p id="quizResult"></p>
   `;
 
   timer = setInterval(function() {
     timeLeft--;
+
     const timerText = document.getElementById("timerText");
 
     if (timerText) {
@@ -404,61 +441,85 @@ function startImageQuiz() {
 
     if (timeLeft <= 0) {
       clearInterval(timer);
-      document.getElementById("quizResult").innerText = "Time's up! ⏰";
+
+      document.getElementById("quizResult").innerText =
+        "Time's up! ⏰ The meerkat ran out of time!";
     }
   }, 1000);
 }
 
-// SELECT IMAGE ANSWER
 function selectImageAnswer(selected) {
   clearInterval(timer);
 
-  const mascot = document.getElementById("meerkatMascot");
+  const meerkat = document.getElementById("meerkatWalker");
   const result = document.getElementById("quizResult");
+  const options = document.querySelectorAll(".image-option");
+  const chosenOption = options[selected];
+  const optionBox = chosenOption.getBoundingClientRect();
 
-  mascot.className = "";
+  options.forEach(function(option) {
+    option.style.pointerEvents = "none";
+  });
 
-  if (selected === imageQuestion.correct) {
-    mascot.classList.add("meerkat-thrive");
-    result.innerText = imageQuestion.options[selected].result;
-  }
-  else {
-    mascot.classList.add("meerkat-struggle");
-    result.innerText = imageQuestion.options[selected].result;
-  }
+  meerkat.classList.remove("jump");
+  meerkat.classList.remove("run-away");
+
+  meerkat.style.left =
+    optionBox.left + optionBox.width / 2 - 50 + "px";
+
+  meerkat.style.top =
+    optionBox.bottom + 10 + "px";
+
+  setTimeout(function() {
+    if (selected === imageQuestion.correct) {
+      meerkat.classList.add("jump");
+      result.innerText = imageQuestion.options[selected].result;
+    }
+
+    else {
+      meerkat.classList.add("run-away");
+      result.innerText = imageQuestion.options[selected].result;
+    }
+  }, 1000);
 }
 
-// MENU FUNCTION
 function showMenu(choice) {
   clearInterval(timer);
 
   document.getElementById("menuScreen").style.display = "none";
   document.getElementById("contentScreen").style.display = "block";
 
-  if (choice === 'discover') {
-    window.location.href = "https://lazoo.org/explore-your-zoo/our-animals/mammals/meerkat/";
+  if (choice === "discover") {
+    window.location.href =
+      "https://lazoo.org/explore-your-zoo/our-animals/mammals/meerkat/";
   }
-  else if (choice === 'quiz') {
+
+  else if (choice === "quiz") {
     startImageQuiz();
   }
-  else if (choice === 'videos') {
+
+  else if (choice === "videos") {
     document.getElementById("contentTitle").innerText = "Watch Videos";
+
     document.getElementById("contentText").innerHTML =
-      '<a href="https://youtu.be/UTkarhKk2qg?si=wD_NFrOFWl3S79u_&t=507" target="_blank">Watch the meerkat video</a>';
+      '<a href="https://youtu.be/UTkarhKk2qg?si=wD_NFrOFWl3S79u_&t=507" target="_blank">Watch meerkat video</a>';
   }
-  else if (choice === 'photo') {
+
+  else if (choice === "photo") {
     document.getElementById("contentTitle").innerText = "Photo Memory";
+
     document.getElementById("contentText").innerText =
       "Photo memory feature coming soon!";
   }
-  else if (choice === 'progress') {
+
+  else if (choice === "progress") {
     document.getElementById("contentTitle").innerText = "My Progress";
+
     document.getElementById("contentText").innerText =
-      "Animals discovered: 0 / 3\nBadges earned: none yet";
+      "Animals discovered: 0 / 3\nBadges earned: Meerkat Explorer";
   }
 }
 
-// GO BACK
 function goBack() {
   clearInterval(timer);
 
@@ -466,9 +527,9 @@ function goBack() {
   document.getElementById("contentScreen").style.display = "none";
 }
 
-// SHOW BADGE ON PAGE OPEN
 showBadge();
 </script>
 
 </body>
+</html>
 </html>

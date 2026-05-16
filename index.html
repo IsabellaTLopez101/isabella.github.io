@@ -139,16 +139,41 @@ p {
 
 .badge-animate {
   display: flex !important;
-  animation: fadeIn 0.3s ease;
+  animation: badgeBounce 2.5s ease-in-out;
 }
 
-@keyframes fadeIn {
-  from {
+@keyframes badgeBounce {
+
+  0% {
     opacity: 0;
+    transform: scale(0);
   }
 
-  to {
+  20% {
     opacity: 1;
+    transform: scale(1.25);
+  }
+
+  35% {
+    transform: scale(0.9);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  65% {
+    transform: scale(0.98);
+  }
+
+  80% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0);
   }
 }
 </style>

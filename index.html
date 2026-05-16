@@ -262,15 +262,16 @@ const questions = [
 function showBadge() {
   const badge = document.getElementById("badgePopup");
 
+  badge.style.display = "block";
+
   badge.classList.remove("badge-animate");
 
   void badge.offsetWidth;
 
-  badge.style.display = "block";
-
   badge.classList.add("badge-animate");
 
   setTimeout(function() {
+    badge.classList.remove("badge-animate");
     badge.style.display = "none";
   }, 2500);
 }

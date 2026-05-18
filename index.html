@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -486,6 +485,10 @@ p {
   <div class="menu-box" onclick="showMenu('progress')">
     ⭐ My Progress
   </div>
+
+  <div class="menu-box" onclick="resetProgress()">
+    🛠 Reset Debug Progress
+  </div>
 </div>
 
 <div id="contentScreen" style="display: none;">
@@ -732,9 +735,17 @@ function goBack() {
   document.getElementById("contentScreen").style.display = "none";
 }
 
+function resetProgress() {
+
+  localStorage.removeItem("discoveredAnimals");
+
+  discoveredAnimals = [];
+
+  alert("Debug progress reset!");
+}
+
 // badge trigger removed on page load
 </script>
 
 </body>
 </html>
-

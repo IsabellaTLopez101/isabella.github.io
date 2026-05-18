@@ -331,12 +331,57 @@ p {
     width: 85px;
   }
 }
+  #leafTransition {
+  position: fixed;
+  top: -100%;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: #2f6b2f;
+
+  color: white;
+
+  font-size: 55px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 10000;
+
+  pointer-events: none;
+}
+
+.leaf-transition-active {
+  animation: leafCover 1s ease-in-out;
+}
+
+@keyframes leafCover {
+
+  0% {
+    top: -100%;
+  }
+
+  40% {
+    top: 0;
+  }
+
+  60% {
+    top: 0;
+  }
+
+  100% {
+    top: 100%;
+  }
+}
 </style>
 
 </head>
 
 <body>
-
+<div id="leafTransition">🍃 🍂 🌿 🍃 🍂 🌿</div>
 <div id="badgePopup">
   <img src="badge.png" alt="Zoo Badge">
 </div>
@@ -528,42 +573,70 @@ function selectImageAnswer(selected) {
     }
   }, 1000);
 }
+function playLeafTransition(callback) {
 
+  const leaves =
+    document.getElementById("leafTransition");
+
+  leaves.classList.remove("leaf-transition-active");
+
+  void leaves.offsetWidth;
+
+  leaves.classList.add("leaf-transition-active");
+
+  setTimeout(function() {
+    callback();
+  }, 450);
+}
 function showMenu(choice) {
-  clearInterval(timer);
 
-  document.getElementById("menuScreen").style.display = "none";
-  document.getElementById("contentScreen").style.display = "block";
+  playLeafTransition(function() {
 
-  if (choice === "discover") {
-    window.location.href =
+    clearInterval(timer);
+
+    document.getElementById("menuScreen").style.display = "none";
+
+    document.getElementById("contentScreen").style.display = "block";
+
+    if (choice === "discover") {
+
+      window.location.href =
       "https://lazoo.org/explore-your-zoo/our-animals/mammals/meerkat/";
-  }
+    }
 
-  else if (choice === "quiz") {
-    startImageQuiz();
-  }
+    else if (choice === "quiz") {
 
-  else if (choice === "videos") {
-    document.getElementById("contentTitle").innerText = "Watch Videos";
+      startImageQuiz();
+    }
 
-    document.getElementById("contentText").innerHTML =
-      '<a href="https://youtu.be/UTkarhKk2qg?si=wD_NFrOFWl3S79u_&t=507" target="_blank">Watch meerkat video</a>';
-  }
+    else if (choice === "videos") {
 
-  else if (choice === "photo") {
-    document.getElementById("contentTitle").innerText = "Photo Memory";
+      document.getElementById("contentTitle").innerText =
+        "Watch Videos";
 
-    document.getElementById("contentText").innerText =
-      "Photo memory feature coming soon!";
-  }
+      document.getElementById("contentText").innerHTML =
+        '<a href="https://youtu.be/UTkarhKk2qg?si=wD_NFrOFWl3S79u_&t=507" target="_blank">Watch meerkat video</a>';
+    }
 
-  else if (choice === "progress") {
-    document.getElementById("contentTitle").innerText = "My Progress";
+    else if (choice === "photo") {
 
-    document.getElementById("contentText").innerText =
-      "Animals discovered: 0 / 3\nBadges earned: Meerkat Explorer";
-  }
+      document.getElementById("contentTitle").innerText =
+        "Photo Memory";
+
+      document.getElementById("contentText").innerText =
+        "Photo memory feature coming soon!";
+    }
+
+    else if (choice === "progress") {
+
+      document.getElementById("contentTitle").innerText =
+        "My Progress";
+
+      document.getElementById("contentText").innerText =
+        "Animals discovered: 0 / 3\nBadges earned: Meerkat Explorer";
+    }
+
+  });
 }
 
 function goBack() {

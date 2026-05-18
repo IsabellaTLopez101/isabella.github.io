@@ -10,6 +10,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: white;
   margin: 0;
+  overflow-x: hidden;
 }
 
 /* HEADER */
@@ -61,25 +62,6 @@ p {
 .menu-box:hover {
   transform: scale(1.05);
   box-shadow: 0px 6px 15px rgba(0,0,0,0.2);
-}
-
-.menu-box:active {
-  transform: scale(0.97);
-}
-
-/* CONTENT SCREEN */
-#contentText {
-  font-size: 22px;
-}
-
-#contentTitle {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-#contentScreen {
-  text-align: center;
-  padding: 20px;
 }
 
 /* BADGE POPUP */
@@ -143,13 +125,52 @@ p {
   }
 }
 
-/* IMAGE QUIZ */
+/* LEAF TRANSITION */
+#leafTransition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2f6b2f;
+  color: white;
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
+  pointer-events: none;
+  transform: translateY(-100%);
+}
+
+#leafTransition.leaf-transition-active {
+  animation: leafCover 1.2s ease-in-out;
+}
+
+@keyframes leafCover {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  40% {
+    transform: translateY(0);
+  }
+
+  60% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* QUIZ */
 .quiz-options {
   display: flex;
   justify-content: center;
   gap: 25px;
   flex-wrap: wrap;
-  position: relative;
   margin-top: 20px;
 }
 
@@ -160,12 +181,11 @@ p {
   width: 260px;
   cursor: pointer;
   background-color: white;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s;
 }
 
 .image-option:hover {
   transform: scale(1.03);
-  box-shadow: 0px 6px 15px rgba(0,0,0,0.2);
 }
 
 .image-option img {
@@ -210,17 +230,9 @@ p {
 }
 
 @keyframes meerkatJump {
-  0% {
-    transform: translateY(0);
-  }
-
-  40% {
-    transform: translateY(-80px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
+  0% { transform: translateY(0); }
+  40% { transform: translateY(-80px); }
+  100% { transform: translateY(0); }
 }
 
 @keyframes meerkatRunAway {
@@ -237,86 +249,19 @@ p {
 
 /* MOBILE */
 @media (max-width: 600px) {
-  .header {
-    padding: 28px 0;
-  }
-
   .header img {
     width: 230px;
-  }
-
-  .main-content {
-    padding: 18px;
-  }
-
-  h1 {
-    font-size: 32px;
-  }
-
-  h2 {
-    font-size: 26px;
-  }
-
-  p {
-    font-size: 20px;
   }
 
   .menu-box {
     width: 90%;
     font-size: 20px;
     padding: 22px;
-    margin: 14px auto;
-  }
-
-  #badgePopup img {
-    width: 300px;
   }
 
   .quiz-options {
     flex-direction: column;
     align-items: center;
-    gap: 18px;
-  }
-
-  .image-option {
-    width: 90%;
-    max-width: 360px;
-    padding: 12px;
-  }
-
-  .image-option img {
-    height: 200px;
-  }
-
-  .image-option p {
-    font-size: 20px;
-  }
-
-  #timerText {
-    font-size: 24px;
-  }
-
-  #quizResult {
-    font-size: 22px;
-  }
-
-  #meerkatWalker {
-    width: 75px;
-    bottom: 20px;
-    left: 10px;
-  }
-}
-
-  .menu-box {
-    width: 90%;
-    max-width: none;
-    font-size: 22px;
-    padding: 25px;
-    margin: 16px auto;
-  }
-
-  #badgePopup img {
-    width: 330px;
   }
 
   .image-option {
@@ -327,45 +272,12 @@ p {
     height: 220px;
   }
 
+  #badgePopup img {
+    width: 300px;
+  }
+
   #meerkatWalker {
-    width: 85px;
-  }
-}#leafTransition {
-  position: fixed;
-  inset: 0;
-  background-color: #2f6b2f;
-  color: white;
-  font-size: 55px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  z-index: 10000;
-  pointer-events: none;
-
-  transform: translateY(-100%);
-}
-
-.leaf-transition-active {
-  animation: leafCover 1s ease-in-out;
-}
-
-@keyframes leafCover {
-  0% {
-    transform: translateY(-100%);
-  }
-
-  40% {
-    transform: translateY(0);
-  }
-
-  60% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(100%);
+    width: 75px;
   }
 }
 </style>
@@ -373,7 +285,11 @@ p {
 </head>
 
 <body>
-<div id="leafTransition">🍃 🍂 🌿 🍃 🍂 🌿</div>
+
+<div id="leafTransition">
+  🍃 🍂 🌿 🍃 🍂 🌿
+</div>
+
 <div id="badgePopup">
   <img src="badge.png" alt="Zoo Badge">
 </div>
@@ -420,25 +336,6 @@ p {
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const animal = params.get("animal");
-
-if (animal === "meerkat") {
-  document.getElementById("animalName").innerText = "Meerkat 🐾";
-}
-
-else if (animal === "gorilla") {
-  document.getElementById("animalName").innerText = "Gorilla 🦍";
-}
-
-else if (animal === "flamingo") {
-  document.getElementById("animalName").innerText = "Flamingo 🦩";
-}
-
-else {
-  document.getElementById("animalName").innerText = "Zoo Explorer";
-}
-
 function showBadge() {
   const badge = document.getElementById("badgePopup");
 
@@ -453,6 +350,20 @@ function showBadge() {
     badge.style.display = "none";
     badge.classList.remove("badge-animate");
   }, 2500);
+}
+
+function playLeafTransition(callback) {
+  const leaves = document.getElementById("leafTransition");
+
+  leaves.classList.remove("leaf-transition-active");
+
+  void leaves.offsetWidth;
+
+  leaves.classList.add("leaf-transition-active");
+
+  setTimeout(function() {
+    callback();
+  }, 500);
 }
 
 let timeLeft = 10;
@@ -489,60 +400,64 @@ function startImageQuiz() {
 
   document.getElementById("contentText").innerHTML = `
     <p>${imageQuestion.question}</p>
+
     <p id="timerText">Time left: ${timeLeft}</p>
 
     <div class="quiz-options">
+
       <div class="image-option" onclick="selectImageAnswer(0)">
-        <img src="${imageQuestion.options[0].image}" alt="${imageQuestion.options[0].text}">
+        <img src="${imageQuestion.options[0].image}">
         <p>${imageQuestion.options[0].text}</p>
       </div>
 
       <div class="image-option" onclick="selectImageAnswer(1)">
-        <img src="${imageQuestion.options[1].image}" alt="${imageQuestion.options[1].text}">
+        <img src="${imageQuestion.options[1].image}">
         <p>${imageQuestion.options[1].text}</p>
       </div>
 
       <div class="image-option" onclick="selectImageAnswer(2)">
-        <img src="${imageQuestion.options[2].image}" alt="${imageQuestion.options[2].text}">
+        <img src="${imageQuestion.options[2].image}">
         <p>${imageQuestion.options[2].text}</p>
       </div>
+
     </div>
 
-    <img id="meerkatWalker" src="Meerkat.png" alt="Meerkat">
+    <img id="meerkatWalker" src="Meerkat.png">
 
     <p id="quizResult"></p>
   `;
 
   timer = setInterval(function() {
+
     timeLeft--;
 
-    const timerText = document.getElementById("timerText");
-
-    if (timerText) {
-      timerText.innerText = "Time left: " + timeLeft;
-    }
+    document.getElementById("timerText").innerText =
+      "Time left: " + timeLeft;
 
     if (timeLeft <= 0) {
+
       clearInterval(timer);
 
       document.getElementById("quizResult").innerText =
-        "Time's up! ⏰ The meerkat ran out of time!";
+        "Time's up! ⏰";
     }
+
   }, 1000);
 }
 
 function selectImageAnswer(selected) {
+
   clearInterval(timer);
 
   const meerkat = document.getElementById("meerkatWalker");
-  const result = document.getElementById("quizResult");
-  const options = document.querySelectorAll(".image-option");
-  const chosenOption = options[selected];
-  const optionBox = chosenOption.getBoundingClientRect();
 
-  options.forEach(function(option) {
-    option.style.pointerEvents = "none";
-  });
+  const result = document.getElementById("quizResult");
+
+  const options = document.querySelectorAll(".image-option");
+
+  const chosenOption = options[selected];
+
+  const optionBox = chosenOption.getBoundingClientRect();
 
   meerkat.classList.remove("jump");
   meerkat.classList.remove("run-away");
@@ -554,32 +469,26 @@ function selectImageAnswer(selected) {
     optionBox.bottom + 10 + "px";
 
   setTimeout(function() {
+
     if (selected === imageQuestion.correct) {
+
       meerkat.classList.add("jump");
-      result.innerText = imageQuestion.options[selected].result;
+
+      result.innerText =
+        imageQuestion.options[selected].result;
     }
 
     else {
+
       meerkat.classList.add("run-away");
-      result.innerText = imageQuestion.options[selected].result;
+
+      result.innerText =
+        imageQuestion.options[selected].result;
     }
+
   }, 1000);
 }
-function playLeafTransition(callback) {
 
-  const leaves =
-    document.getElementById("leafTransition");
-
-  leaves.classList.remove("leaf-transition-active");
-
-  void leaves.offsetWidth;
-
-  leaves.classList.add("leaf-transition-active");
-
-  setTimeout(function() {
-    callback();
-  }, 450);
-}
 function showMenu(choice) {
 
   playLeafTransition(function() {
@@ -632,8 +541,6 @@ function showMenu(choice) {
 }
 
 function goBack() {
-  clearInterval(timer);
-
   document.getElementById("menuScreen").style.display = "block";
   document.getElementById("contentScreen").style.display = "none";
 }
@@ -642,5 +549,4 @@ showBadge();
 </script>
 
 </body>
-</html>
 </html>

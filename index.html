@@ -132,74 +132,192 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-
   background-color: transparent;
-
   display: none;
-  justify-content: center;
-  align-items: center;
-
   z-index: 100000;
   pointer-events: none;
   overflow: hidden;
 }
 
 #leafTransition.leaf-transition-active {
-  display: flex;
+  display: block;
 }
 
-.leaf-burst {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-}
-
-.leaf-burst span {
+.leaf {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 36px;
+  width: 520px;
+  height: 250px;
+  border-radius: 75% 0 75% 0;
+  transform-origin: center;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.2);
 }
 
-#leafTransition.leaf-transition-active .leaf-burst span {
-  animation: leafBurst 1.2s ease-in-out forwards;
+.leaf::before {
+  content: "";
+  position: absolute;
+  top: 48%;
+  left: 6%;
+  width: 88%;
+  height: 10px;
+  background-color: rgba(220, 210, 85, 0.75);
+  border-radius: 999px;
+  transform: rotate(8deg);
 }
 
-.leaf-burst span:nth-child(1) { --x: -48vw; --y: -42vh; animation-delay: 0s; }
-.leaf-burst span:nth-child(2) { --x: -22vw; --y: -45vh; animation-delay: 0.04s; }
-.leaf-burst span:nth-child(3) { --x: 10vw; --y: -44vh; animation-delay: 0.08s; }
-.leaf-burst span:nth-child(4) { --x: 42vw; --y: -38vh; animation-delay: 0.12s; }
-.leaf-burst span:nth-child(5) { --x: -46vw; --y: -10vh; animation-delay: 0.16s; }
-.leaf-burst span:nth-child(6) { --x: 45vw; --y: -5vh; animation-delay: 0.20s; }
-.leaf-burst span:nth-child(7) { --x: -40vw; --y: 30vh; animation-delay: 0.24s; }
-.leaf-burst span:nth-child(8) { --x: -12vw; --y: 42vh; animation-delay: 0.28s; }
-.leaf-burst span:nth-child(9) { --x: 16vw; --y: 40vh; animation-delay: 0.32s; }
-.leaf-burst span:nth-child(10) { --x: 46vw; --y: 28vh; animation-delay: 0.36s; }
-.leaf-burst span:nth-child(11) { --x: 0vw; --y: 0vh; animation-delay: 0.18s; }
-.leaf-burst span:nth-child(12) { --x: 30vw; --y: 12vh; animation-delay: 0.26s; }
+.leaf::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  left: 38%;
+  width: 7px;
+  height: 130px;
+  background-color: rgba(190, 230, 140, 0.45);
+  border-radius: 999px;
+  transform: rotate(-28deg);
+  box-shadow:
+    55px 20px 0 rgba(190, 230, 140, 0.35),
+    -55px 22px 0 rgba(190, 230, 140, 0.35);
+}
 
-@keyframes leafBurst {
+#leafTransition.leaf-transition-active .leaf {
+  animation: jungleLeafSweep 1.35s ease-in-out forwards;
+}
+
+.leaf-one {
+  background-color: #2f7d1f;
+  top: -18%;
+  left: -22%;
+  transform: rotate(24deg) scale(0.4);
+  animation-delay: 0s;
+}
+
+.leaf-two {
+  background-color: #5d9627;
+  top: -10%;
+  right: -25%;
+  transform: rotate(-28deg) scale(0.45);
+  animation-delay: 0.08s;
+}
+
+.leaf-three {
+  background-color: #8f9820;
+  bottom: -22%;
+  right: -18%;
+  transform: rotate(18deg) scale(0.45);
+  animation-delay: 0.14s;
+}
+
+.leaf-four {
+  background-color: #0f7f45;
+  bottom: -24%;
+  left: -20%;
+  transform: rotate(-22deg) scale(0.45);
+  animation-delay: 0.20s;
+}
+
+.leaf-five {
+  background-color: #2b681d;
+  top: 32%;
+  left: -30%;
+  transform: rotate(7deg) scale(0.45);
+  animation-delay: 0.26s;
+}
+
+.leaf-six {
+  background-color: #7f8f1e;
+  top: 36%;
+  right: -32%;
+  transform: rotate(-12deg) scale(0.45);
+  animation-delay: 0.32s;
+}
+
+@keyframes jungleLeafSweep {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+    translate: 0 0;
+    scale: 0.35;
   }
 
   35% {
     opacity: 1;
-    transform: translate(calc(-50% + var(--x) * 0.45), calc(-50% + var(--y) * 0.45)) scale(2.3) rotate(120deg);
+    scale: 1.3;
   }
 
-  70% {
+  65% {
     opacity: 1;
-    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(4.2) rotate(260deg);
+    scale: 2.2;
   }
 
   100% {
     opacity: 0;
-    transform: translate(calc(-50% + var(--x) * 1.15), calc(-50% + var(--y) * 1.15)) scale(5.4) rotate(360deg);
+    scale: 3.2;
   }
+}
+
+#leafTransition.leaf-transition-active .leaf-one {
+  animation-name: jungleLeafOne;
+}
+
+#leafTransition.leaf-transition-active .leaf-two {
+  animation-name: jungleLeafTwo;
+}
+
+#leafTransition.leaf-transition-active .leaf-three {
+  animation-name: jungleLeafThree;
+}
+
+#leafTransition.leaf-transition-active .leaf-four {
+  animation-name: jungleLeafFour;
+}
+
+#leafTransition.leaf-transition-active .leaf-five {
+  animation-name: jungleLeafFive;
+}
+
+#leafTransition.leaf-transition-active .leaf-six {
+  animation-name: jungleLeafSix;
+}
+
+@keyframes jungleLeafOne {
+  0% { opacity: 0; transform: translate(-40vw, -20vh) rotate(24deg) scale(0.4); }
+  35% { opacity: 1; transform: translate(10vw, 20vh) rotate(18deg) scale(1.4); }
+  70% { opacity: 1; transform: translate(28vw, 34vh) rotate(12deg) scale(2.4); }
+  100% { opacity: 0; transform: translate(55vw, 60vh) rotate(6deg) scale(3.3); }
+}
+
+@keyframes jungleLeafTwo {
+  0% { opacity: 0; transform: translate(40vw, -25vh) rotate(-28deg) scale(0.45); }
+  35% { opacity: 1; transform: translate(-8vw, 15vh) rotate(-18deg) scale(1.45); }
+  70% { opacity: 1; transform: translate(-25vw, 28vh) rotate(-10deg) scale(2.5); }
+  100% { opacity: 0; transform: translate(-55vw, 54vh) rotate(-4deg) scale(3.4); }
+}
+
+@keyframes jungleLeafThree {
+  0% { opacity: 0; transform: translate(34vw, 36vh) rotate(18deg) scale(0.45); }
+  35% { opacity: 1; transform: translate(-12vw, -2vh) rotate(12deg) scale(1.5); }
+  70% { opacity: 1; transform: translate(-28vw, -18vh) rotate(8deg) scale(2.7); }
+  100% { opacity: 0; transform: translate(-58vw, -45vh) rotate(4deg) scale(3.5); }
+}
+
+@keyframes jungleLeafFour {
+  0% { opacity: 0; transform: translate(-34vw, 34vh) rotate(-22deg) scale(0.45); }
+  35% { opacity: 1; transform: translate(8vw, -4vh) rotate(-15deg) scale(1.5); }
+  70% { opacity: 1; transform: translate(26vw, -20vh) rotate(-9deg) scale(2.7); }
+  100% { opacity: 0; transform: translate(58vw, -48vh) rotate(-3deg) scale(3.5); }
+}
+
+@keyframes jungleLeafFive {
+  0% { opacity: 0; transform: translate(-42vw, 0) rotate(7deg) scale(0.45); }
+  35% { opacity: 1; transform: translate(12vw, 0) rotate(5deg) scale(1.55); }
+  70% { opacity: 1; transform: translate(34vw, 0) rotate(2deg) scale(2.7); }
+  100% { opacity: 0; transform: translate(70vw, 0) rotate(0deg) scale(3.5); }
+}
+
+@keyframes jungleLeafSix {
+  0% { opacity: 0; transform: translate(42vw, 4vh) rotate(-12deg) scale(0.45); }
+  35% { opacity: 1; transform: translate(-12vw, 0) rotate(-8deg) scale(1.55); }
+  70% { opacity: 1; transform: translate(-34vw, 0) rotate(-4deg) scale(2.7); }
+  100% { opacity: 0; transform: translate(-70vw, 0) rotate(0deg) scale(3.5); }
 }
 
 /* QUIZ */
@@ -324,20 +442,12 @@ p {
 <body>
 
 <div id="leafTransition">
-  <div class="leaf-burst">
-    <span>🍃</span>
-    <span>🍂</span>
-    <span>🌿</span>
-    <span>🍃</span>
-    <span>🍂</span>
-    <span>🌿</span>
-    <span>🍃</span>
-    <span>🍂</span>
-    <span>🌿</span>
-    <span>🍃</span>
-    <span>🍂</span>
-    <span>🌿</span>
-  </div>
+  <div class="leaf leaf-one"></div>
+  <div class="leaf leaf-two"></div>
+  <div class="leaf leaf-three"></div>
+  <div class="leaf leaf-four"></div>
+  <div class="leaf leaf-five"></div>
+  <div class="leaf leaf-six"></div>
 </div>
 
 <div id="badgePopup">
@@ -600,4 +710,3 @@ showBadge();
 
 </body>
 </html>
-

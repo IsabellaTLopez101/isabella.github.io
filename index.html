@@ -367,6 +367,113 @@ p {
   font-weight: bold;
 }
 
+/* PHOTO MEMORY */
+.photo-memory-box {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#cameraPreview {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 18px;
+  border: 3px solid #360805;
+  background-color: #eee;
+  display: none;
+}
+
+#photoCanvas {
+  display: none;
+}
+
+#capturedPhoto {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 18px;
+  border: 3px solid #3573A5;
+  margin-top: 15px;
+  display: none;
+}
+
+.camera-button {
+  background-color: #3573A5;
+  color: white;
+  padding: 16px 22px;
+  margin: 10px auto;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+}
+
+.camera-button:hover {
+  transform: scale(1.03);
+}
+
+.memory-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.memory-card {
+  width: 160px;
+  border: 3px solid #360805;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: white;
+}
+
+.memory-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.memory-card p {
+  font-size: 14px;
+  margin: 6px 0 0 0;
+}
+
+/* PROGRESS BADGES */
+.badge-lineup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.collected-badge {
+  text-align: center;
+}
+
+.collected-badge img {
+  width: 120px;
+  height: auto;
+  display: block;
+  margin: 0 auto 8px auto;
+}
+
+.collected-badge p {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.empty-progress {
+  font-size: 20px;
+  color: #555;
+  margin-top: 20px;
+}
+
 #meerkatWalker {
   width: 100px;
   position: fixed;
@@ -538,6 +645,7 @@ function playLeafTransition(callback) {
 
 let timeLeft = 10;
 let timer;
+let cameraStream = null;
 
 const imageQuestion = {
   question: "Which environment helps a meerkat thrive?",
@@ -673,6 +781,125 @@ function selectImageAnswer(selected) {
   }, 1000);
 }
 
+function startPhotoMemory() {
+
+  document.getElementById("contentTitle").innerText = "Photo Memory";
+
+  document.getElementById("contentText").innerHTML = `
+    <div class="photo-memory-box">
+      <p>Take a zoo memory photo for this animal.</p>
+
+      <button class="camera-button" onclick="openCamera()">
+        Open Camera
+      </button>
+
+      <video id="cameraPreview" autoplay playsinline></video>
+
+      <button class="camera-button" onclick="takePhoto()">
+        Take Photo
+      </button>
+
+      <canvas id="photoCanvas"></canvas>
+
+      <img id="capturedPhoto" alt="Captured zoo memory">
+
+      <div id="photoActions" style="display:none;">
+        <button class="camera-button" onclick="downloadPhoto()">
+          📸 Save To Gallery
+        </button>
+
+        <button class="camera-button" onclick="discardPhoto()">
+          ❌ Discard Photo
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function openCamera() {
+
+  const video = document.getElementById("cameraPreview");
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    alert("Camera is not supported in this browser.");
+    return;
+  }
+
+  navigator.mediaDevices.getUserMedia({
+    video: {
+      facingMode: "environment"
+    },
+    audio: false
+  })
+  .then(function(stream) {
+    cameraStream = stream;
+    video.srcObject = stream;
+    video.style.display = "block";
+  })
+  .catch(function(error) {
+    alert("Camera permission was blocked or unavailable.");
+  });
+}
+
+function takePhoto() {
+
+  const video = document.getElementById("cameraPreview");
+  const canvas = document.getElementById("photoCanvas");
+  const capturedPhoto = document.getElementById("capturedPhoto");
+
+  if (!cameraStream) {
+    alert("Open the camera first.");
+    return;
+  }
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  const context = canvas.getContext("2d");
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  const photoData = canvas.toDataURL("image/png");
+
+  capturedPhoto.src = photoData;
+  capturedPhoto.style.display = "block";
+
+  document.getElementById("photoActions").style.display = "block";
+}
+
+function downloadPhoto() {
+
+  const capturedPhoto = document.getElementById("capturedPhoto");
+
+  if (!capturedPhoto.src) {
+    alert("Take a photo first.");
+    return;
+  }
+
+  const downloadLink = document.createElement("a");
+
+  downloadLink.href = capturedPhoto.src;
+
+  downloadLink.download = `${animal}-zoo-memory.png`;
+
+  document.body.appendChild(downloadLink);
+
+  downloadLink.click();
+
+  document.body.removeChild(downloadLink);
+
+  alert("Photo downloaded to your device gallery/downloads.");
+}
+
+function discardPhoto() {
+
+  const capturedPhoto = document.getElementById("capturedPhoto");
+
+  capturedPhoto.src = "";
+  capturedPhoto.style.display = "none";
+
+  document.getElementById("photoActions").style.display = "none";
+}
+
 function showMenu(choice) {
 
   playLeafTransition(function() {
@@ -705,11 +932,7 @@ function showMenu(choice) {
 
     else if (choice === "photo") {
 
-      document.getElementById("contentTitle").innerText =
-        "Photo Memory";
-
-      document.getElementById("contentText").innerText =
-        "Photo memory feature coming soon!";
+      startPhotoMemory();
     }
 
     else if (choice === "progress") {
@@ -717,13 +940,31 @@ function showMenu(choice) {
       document.getElementById("contentTitle").innerText =
         "My Progress";
 
-      const discoveredList = discoveredAnimals.length > 0
-        ? discoveredAnimals.join(", ")
-        : "No animals discovered yet";
+      let badgeHTML = "";
+
+      if (discoveredAnimals.length > 0) {
+        discoveredAnimals.forEach(function(foundAnimal) {
+          badgeHTML += `
+            <div class="collected-badge">
+              <img src="badge.png" alt="${foundAnimal} Badge">
+              <p>${foundAnimal}</p>
+            </div>
+          `;
+        });
+      }
+
+      else {
+        badgeHTML = `
+          <p class="empty-progress">No badges collected yet. Complete a quiz to earn one!</p>
+        `;
+      }
 
       document.getElementById("contentText").innerHTML = `
         <p>Animals discovered: ${discoveredAnimals.length} / 3</p>
-        <p>Badges earned: ${discoveredList}</p>
+
+        <div class="badge-lineup">
+          ${badgeHTML}
+        </div>
       `;
     }
 
@@ -731,6 +972,16 @@ function showMenu(choice) {
 }
 
 function goBack() {
+  clearInterval(timer);
+
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(function(track) {
+      track.stop();
+    });
+
+    cameraStream = null;
+  }
+
   document.getElementById("menuScreen").style.display = "block";
   document.getElementById("contentScreen").style.display = "none";
 }
@@ -749,4 +1000,3 @@ function resetProgress() {
 
 </body>
 </html>
-

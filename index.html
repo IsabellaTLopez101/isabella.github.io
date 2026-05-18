@@ -132,36 +132,73 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #2f6b2f;
-  color: white;
-  font-size: 60px;
-  display: flex;
+
+  background-color: transparent;
+
+  display: none;
   justify-content: center;
   align-items: center;
+
   z-index: 100000;
   pointer-events: none;
-  transform: translateY(-100%);
+  overflow: hidden;
 }
 
 #leafTransition.leaf-transition-active {
-  animation: leafCover 1.2s ease-in-out;
+  display: flex;
 }
 
-@keyframes leafCover {
+.leaf-burst {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.leaf-burst span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 36px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2);
+}
+
+#leafTransition.leaf-transition-active .leaf-burst span {
+  animation: leafBurst 1.2s ease-in-out forwards;
+}
+
+.leaf-burst span:nth-child(1) { --x: -48vw; --y: -42vh; animation-delay: 0s; }
+.leaf-burst span:nth-child(2) { --x: -22vw; --y: -45vh; animation-delay: 0.04s; }
+.leaf-burst span:nth-child(3) { --x: 10vw; --y: -44vh; animation-delay: 0.08s; }
+.leaf-burst span:nth-child(4) { --x: 42vw; --y: -38vh; animation-delay: 0.12s; }
+.leaf-burst span:nth-child(5) { --x: -46vw; --y: -10vh; animation-delay: 0.16s; }
+.leaf-burst span:nth-child(6) { --x: 45vw; --y: -5vh; animation-delay: 0.20s; }
+.leaf-burst span:nth-child(7) { --x: -40vw; --y: 30vh; animation-delay: 0.24s; }
+.leaf-burst span:nth-child(8) { --x: -12vw; --y: 42vh; animation-delay: 0.28s; }
+.leaf-burst span:nth-child(9) { --x: 16vw; --y: 40vh; animation-delay: 0.32s; }
+.leaf-burst span:nth-child(10) { --x: 46vw; --y: 28vh; animation-delay: 0.36s; }
+.leaf-burst span:nth-child(11) { --x: 0vw; --y: 0vh; animation-delay: 0.18s; }
+.leaf-burst span:nth-child(12) { --x: 30vw; --y: 12vh; animation-delay: 0.26s; }
+
+@keyframes leafBurst {
   0% {
-    transform: translateY(-100%);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
   }
 
-  40% {
-    transform: translateY(0);
+  35% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--x) * 0.45), calc(-50% + var(--y) * 0.45)) scale(2.3) rotate(120deg);
   }
 
-  60% {
-    transform: translateY(0);
+  70% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(4.2) rotate(260deg);
   }
 
   100% {
-    transform: translateY(100%);
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x) * 1.15), calc(-50% + var(--y) * 1.15)) scale(5.4) rotate(360deg);
   }
 }
 
@@ -287,7 +324,20 @@ p {
 <body>
 
 <div id="leafTransition">
-  🍃 🍂 🌿 🍃 🍂 🌿
+  <div class="leaf-burst">
+    <span>🍃</span>
+    <span>🍂</span>
+    <span>🌿</span>
+    <span>🍃</span>
+    <span>🍂</span>
+    <span>🌿</span>
+    <span>🍃</span>
+    <span>🍂</span>
+    <span>🌿</span>
+    <span>🍃</span>
+    <span>🍂</span>
+    <span>🌿</span>
+  </div>
 </div>
 
 <div id="badgePopup">
@@ -550,3 +600,4 @@ showBadge();
 
 </body>
 </html>
+

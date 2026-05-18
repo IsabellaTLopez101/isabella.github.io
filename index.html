@@ -496,6 +496,12 @@ p {
 </div>
 
 <script>
+const params = new URLSearchParams(window.location.search);
+const animal = params.get("animal") || "meerkat";
+
+let discoveredAnimals =
+  JSON.parse(localStorage.getItem("discoveredAnimals")) || [];
+
 function showBadge() {
   const badge = document.getElementById("badgePopup");
 
@@ -610,14 +616,14 @@ function selectImageAnswer(selected) {
   clearInterval(timer);
 
   const meerkat = document.getElementById("meerkatWalker");
-
   const result = document.getElementById("quizResult");
-
   const options = document.querySelectorAll(".image-option");
-
   const chosenOption = options[selected];
-
   const optionBox = chosenOption.getBoundingClientRect();
+
+  options.forEach(function(option) {
+    option.style.pointerEvents = "none";
+  });
 
   meerkat.classList.remove("jump");
   meerkat.classList.remove("run-away");
@@ -636,6 +642,18 @@ function selectImageAnswer(selected) {
 
       result.innerText =
         imageQuestion.options[selected].result;
+
+      if (!discoveredAnimals.includes(animal)) {
+
+        discoveredAnimals.push(animal);
+
+        localStorage.setItem(
+          "discoveredAnimals",
+          JSON.stringify(discoveredAnimals)
+        );
+
+        showBadge();
+      }
     }
 
     else {
@@ -693,8 +711,14 @@ function showMenu(choice) {
       document.getElementById("contentTitle").innerText =
         "My Progress";
 
-      document.getElementById("contentText").innerText =
-        "Animals discovered: 0 / 3\nBadges earned: Meerkat Explorer";
+      const discoveredList = discoveredAnimals.length > 0
+        ? discoveredAnimals.join(", ")
+        : "No animals discovered yet";
+
+      document.getElementById("contentText").innerHTML = `
+        <p>Animals discovered: ${discoveredAnimals.length} / 3</p>
+        <p>Badges earned: ${discoveredList}</p>
+      `;
     }
 
   });

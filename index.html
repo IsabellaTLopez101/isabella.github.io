@@ -34,22 +34,28 @@ body {
   overflow: visible;
 }
 
+#treeDecor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .menu-tree {
   position: fixed;
-  top: 210px;
-  width: 260px;
-  opacity: 0.85;
-  z-index: 1;
+  top: 250px;
+  width: 320px;
+  opacity: 0.9;
   pointer-events: none;
   animation: treePulse 3s ease-in-out infinite;
 }
 
 .menu-tree-left {
-  left: -70px;
+  left: 20px;
 }
 
 .menu-tree-right {
-  right: -70px;
+  right: 20px;
   transform: scaleX(-1);
   animation: treePulseRight 3s ease-in-out infinite;
 }
@@ -571,17 +577,17 @@ p {
 /* MOBILE */
 @media (max-width: 600px) {
   .menu-tree {
-    width: 145px;
+    width: 150px;
     top: 260px;
-    opacity: 0.6;
+    opacity: 0.65;
   }
 
   .menu-tree-left {
-    left: -80px;
+    left: -40px;
   }
 
   .menu-tree-right {
-    right: -80px;
+    right: -40px;
   }
 
   .header img {
@@ -621,6 +627,11 @@ p {
 
 <body>
 
+<div id="treeDecor">
+  <img class="menu-tree menu-tree-left" src="./Tree.png" alt="">
+  <img class="menu-tree menu-tree-right" src="./Tree.png" alt="">
+</div>
+
 <div id="leafTransition">
   <div class="leaf leaf-one"></div>
   <div class="leaf leaf-two"></div>
@@ -640,8 +651,7 @@ p {
 
 <div class="main-content">
 
-<img class="menu-tree menu-tree-left" src="Tree.png" alt="">
-<img class="menu-tree menu-tree-right" src="Tree.png" alt="">
+
 
 <h1>Zoo Explorer</h1>
 <h2 id="animalName"></h2>

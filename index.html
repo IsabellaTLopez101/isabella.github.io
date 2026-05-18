@@ -29,6 +29,64 @@ body {
 .main-content {
   padding: 20px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-tree {
+  position: absolute;
+  top: 60px;
+  width: 170px;
+  opacity: 0.85;
+  z-index: 0;
+  pointer-events: none;
+  animation: treePulse 3s ease-in-out infinite;
+}
+
+.menu-tree-left {
+  left: -35px;
+}
+
+.menu-tree-right {
+  right: -35px;
+  transform: scaleX(-1);
+  animation: treePulseRight 3s ease-in-out infinite;
+}
+
+@keyframes treePulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes treePulseRight {
+  0% {
+    transform: scaleX(-1) scale(1);
+  }
+
+  50% {
+    transform: scaleX(-1) scale(1.08);
+  }
+
+  100% {
+    transform: scaleX(-1) scale(1);
+  }
+}
+
+.main-content h1,
+.main-content h2,
+#menuScreen,
+#contentScreen {
+  position: relative;
+  z-index: 1;
 }
 
 h1 {
@@ -511,6 +569,20 @@ p {
 
 /* MOBILE */
 @media (max-width: 600px) {
+  .menu-tree {
+    width: 115px;
+    top: 80px;
+    opacity: 0.55;
+  }
+
+  .menu-tree-left {
+    left: -55px;
+  }
+
+  .menu-tree-right {
+    right: -55px;
+  }
+
   .header img {
     width: 230px;
   }
@@ -566,6 +638,9 @@ p {
 </div>
 
 <div class="main-content">
+
+<img class="menu-tree menu-tree-left" src="tree.png" alt="Decorative tree">
+<img class="menu-tree menu-tree-right" src="tree.png" alt="Decorative tree">
 
 <h1>Zoo Explorer</h1>
 <h2 id="animalName"></h2>

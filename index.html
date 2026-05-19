@@ -846,14 +846,33 @@ function takePhoto() {
   canvas.height = video.videoHeight;
 
   const context = canvas.getContext("2d");
+
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-  const photoData = canvas.toDataURL("image/png");
+  const borderImage = new Image();
+  borderImage.src = "Border.png";
 
-  capturedPhoto.src = photoData;
-  capturedPhoto.style.display = "block";
+  borderImage.onload = function() {
+    context.drawImage(borderImage, 0, 0, canvas.width, canvas.height);
 
-  document.getElementById("photoActions").style.display = "block";
+    const photoData = canvas.toDataURL("image/png");
+
+    capturedPhoto.src = photoData;
+    capturedPhoto.style.display = "block";
+
+    document.getElementById("photoActions").style.display = "block";
+  };
+
+  borderImage.onerror = function() {
+    alert("Border.png could not load. Make sure the file name is exactly Border.png in GitHub.");
+
+    const photoData = canvas.toDataURL("image/png");
+
+    capturedPhoto.src = photoData;
+    capturedPhoto.style.display = "block";
+
+    document.getElementById("photoActions").style.display = "block";
+  };
 }
 
 function downloadPhoto() {

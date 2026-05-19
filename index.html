@@ -850,7 +850,7 @@ function takePhoto() {
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
   const borderImage = new Image();
-  borderImage.src = "Border.png";
+  borderImage.src = "./Border.png";
 
   borderImage.onload = function() {
     context.drawImage(borderImage, 0, 0, canvas.width, canvas.height);

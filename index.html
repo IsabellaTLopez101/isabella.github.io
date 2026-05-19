@@ -1,4 +1,4 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -34,59 +34,7 @@ body {
   overflow: visible;
 }
 
-#treeDecor {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-}
 
-.menu-tree {
-  position: fixed;
-  top: 250px;
-  width: 320px;
-  opacity: 0.9;
-  pointer-events: none;
-  animation: treePulse 3s ease-in-out infinite;
-}
-
-.menu-tree-left {
-  left: 20px;
-}
-
-.menu-tree-right {
-  right: 20px;
-  transform: scaleX(-1);
-  animation: treePulseRight 3s ease-in-out infinite;
-}
-
-@keyframes treePulse {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.08);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes treePulseRight {
-  0% {
-    transform: scaleX(-1) scale(1);
-  }
-
-  50% {
-    transform: scaleX(-1) scale(1.08);
-  }
-
-  100% {
-    transform: scaleX(-1) scale(1);
-  }
-}
 
 .main-content h1,
 .main-content h2,
@@ -540,7 +488,7 @@ p {
 }
 
 #meerkatWalker {
-  width: 100px;
+  width: 150px;
   position: fixed;
   bottom: 40px;
   left: 20px;
@@ -576,49 +524,8 @@ p {
 
 /* MOBILE */
 @media (max-width: 600px) {
-  .menu-tree {
-    width: 150px;
-    top: 260px;
-    opacity: 0.65;
-  }
-
-  .menu-tree-left {
-    left: -40px;
-  }
-
-  .menu-tree-right {
-    right: -40px;
-  }
-
-  .header img {
-    width: 230px;
-  }
-
-  .menu-box {
-    width: 90%;
-    font-size: 20px;
-    padding: 22px;
-  }
-
-  .quiz-options {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .image-option {
-    width: 90%;
-  }
-
-  .image-option img {
-    height: 220px;
-  }
-
-  #badgePopup img {
-    width: 300px;
-  }
-
   #meerkatWalker {
-    width: 75px;
+    width: 140px;
   }
 }
 </style>
@@ -627,10 +534,7 @@ p {
 
 <body>
 
-<div id="treeDecor">
-  <img class="menu-tree menu-tree-left" src="./Tree.png" alt="">
-  <img class="menu-tree menu-tree-right" src="./Tree.png" alt="">
-</div>
+
 
 <div id="leafTransition">
   <div class="leaf leaf-one"></div>
